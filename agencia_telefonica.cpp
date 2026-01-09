@@ -25,6 +25,27 @@ typedef struct Info
 Info contactos[100];  //Array, registro de contactos
 int total_contactos = 0;
 
+//Opcion 1 crear un contacto
+void addinfo(){
+    char opcion;
+printf("Desea crear un contacto (s/n): ");
+    scanf(" %c", &opcion);
+    if (opcion == 's' || opcion == 'S') {
+        printf("=== Crear Contacto ===\n");
+        printf("Nombre: ");
+        scanf("%29s",& contactos[total_contactos].nombre); 
+        printf("Apellido: ");
+        scanf("%29s",& contactos[total_contactos].apellido);
+        printf("Telefono: ");
+        scanf("%12s",& contactos[total_contactos].telefono);
+        printf("Apodo: ");
+        scanf("%19s", contactos[total_contactos].apodo);
+        
+        total_contactos++;
+        printf("\nContacto guardado\n\n");
+    }
+}
+
 
 
 int main(){
@@ -43,7 +64,7 @@ switch (op)
 {
  //Registro de contactos con telefono y nombre
     case 1:
-    printf("h1");
+    addinfo();
         break;
     //Buscar contacto por inicial    
     case 2:
