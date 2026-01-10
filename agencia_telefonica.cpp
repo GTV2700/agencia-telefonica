@@ -19,7 +19,7 @@ typedef struct Info
 	char apellido[30];
 	char telefono[13];
 	char apodo[20];
-}info; //organiza las variable para solo tener que llamar la funion
+}info; //organiza las variable para solo tener que llamar la funcion
 
 
 Info contactos[100];  //Array, registro de contactos
@@ -45,16 +45,30 @@ printf("Desea crear un contacto (s/n): ");
         printf("\nContacto guardado\n\n");
     }
 }
+// === FUNCIÓN DE BÚSQUEDA RECURSIVA  ===
+void buscarRecursivo(int indice, char inicial) {
+    if (indice >= total_contactos) return; // Caso base
 
+    // Compara la inicial del nombre guardado con la letra buscada
+    if (contactos[indice].nombre[0] == inicial) {
+
+        printf("-> %s %s | Tel: %s\n", 
+                contactos[indice].nombre, 
+                contactos[indice].apellido, 
+                contactos[indice].telefono);
+    }
+    buscarRecursivo(indice + 1, inicial); // Llamada recursiva
+}
 
 
 int main(){
     printf("Agencia Telefonica De Busqueda Inteligente");
     int op;
+    char letra;
 do
 {
-    printf("seleciones una opcion.\n");
-    printf("1.reistro de contacto:\n");
+    printf("\nselecione una opcion.\n");
+    printf("1.registro de contacto:\n");
     printf("2.busqueda de contacto:\n");
     printf("3.editar y cargar contacto:\n");
     printf("4.guardar y cargar desde archivo:\n");
@@ -68,9 +82,17 @@ switch (op)
         break;
     //Buscar contacto por inicial    
     case 2:
-    printf("h2");
-        break;
-    //editar contacto y cargar contacto     
+     if(total_contactos==0){ 
+    printf("\nNo hay contactos registrados todavia\n");
+    }else{
+        printf("\nIngrese la letra inicial a buscar:");
+        scanf(" %c",&letra);
+
+        printf("\n===Resultado de la busqueda===\n");
+        buscarRecursivo( 0,letra);
+     }      
+    break;
+     //editar contacto y cargar contacto     
     case 3:
     printf("h3");
         break;
