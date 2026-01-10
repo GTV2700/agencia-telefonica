@@ -11,7 +11,7 @@
 //3.editar y cargar contacto
 //4.guardar y cargar desde archivo
 //5.usar recursion para buscar coincidencias
-
+//el guesaso
 //hola emil prueba de ramas v:
 typedef struct Info
 {
