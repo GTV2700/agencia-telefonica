@@ -14,6 +14,7 @@
 //el guesaso
 //hola emil prueba de ramas v:
 //klk
+//hola mundo v:
 typedef struct Info
 {
 	char nombre[30];
