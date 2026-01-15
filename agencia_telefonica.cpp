@@ -60,7 +60,58 @@ void buscarRecursivo(int indice, char inicial) {
     buscarRecursivo(indice + 1, inicial); // Llamada recursiva
 }
 
+//Editar contacto //
+void editarContacto() {
+    char buscaNombre[30];
+    int encontrado = 0;
+    printf("\nIngrese el nombre exacto del contacto a editar: ");
+    scanf("%29s", buscaNombre);
 
+    for(int i = 0; i < total_contactos; i++) {
+        if(strcmp(contactos[i].nombre, buscaNombre) == 0) {
+            printf("--- Editando a %s ---\n", contactos[i].nombre);
+            printf("Nuevo Nombre: "); scanf("%29s", contactos[i].nombre);
+            printf("Nuevo Apellido: "); scanf("%29s", contactos[i].apellido);
+            printf("Nuevo Telefono: "); scanf("%12s", contactos[i].telefono);
+            printf("Nuevo Apodo: "); scanf("%19s", contactos[i].apodo);
+            printf("Contacto actualizado con exito.\n");
+            encontrado = 1;
+            break;
+        }
+    }
+    if(!encontrado) printf("Contacto no encontrado.\n");
+}
+
+//  Guardar y Cargar Archivo //
+void guardarEnArchivo() {
+    FILE *f = fopen("contactos.txt", "w");
+    if (f == NULL) {
+        printf("Error al abrir archivo.\n");
+        return;
+    }
+    for (int i = 0; i < total_contactos; i++) {
+        fprintf(f, "%s %s %s %s\n", contactos[i].nombre, contactos[i].apellido, contactos[i].telefono, contactos[i].apodo);
+    }
+    fclose(f);
+    printf("Datos guardados en 'contactos.txt'.\n");
+}
+
+void cargarDesdeArchivo() {
+    FILE *f = fopen("contactos.txt", "r");
+    if (f == NULL) {
+        printf("No existe archivo previo.\n");
+        return;
+    }
+    total_contactos = 0;
+    while (fscanf(f, "%s %s %s %s", contactos[total_contactos].nombre, 
+                  contactos[total_contactos].apellido, 
+                  contactos[total_contactos].telefono, 
+                  contactos[total_contactos].apodo) != EOF) {
+        total_contactos++;
+    }
+    fclose(f);
+    printf("Se cargaron %d contactos desde el archivo.\n", total_contactos);
+}
 int main(){
     printf("Agencia Telefonica De Busqueda Inteligente");
     int op;
@@ -94,15 +145,20 @@ switch (op)
     break;
      //editar contacto y cargar contacto     
     case 3:
-    printf("h3");
+    if(total_contactos == 0) printf("Agenda vacia.\n");
+        else editarContacto();
         break;
     //guardar y cargar desde archivo    
     case 4:
-    printf("h4");
+   printf("1. Guardar en archivo\n2. Cargar desde archivo\nOpcion: ");
+         int subOp;
+         scanf("%d", &subOp);
+         if(subOp == 1) guardarEnArchivo();
+         else if(subOp == 2) cargarDesdeArchivo();
         break;
         //salir
     case 5:
-    printf("exit");
+    printf("exit ");
     op = 0;
      break;
 }
@@ -111,3 +167,4 @@ switch (op)
 printf("finish");
 return 0;
 }
+
